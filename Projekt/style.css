@@ -1,0 +1,121 @@
+body {
+    background-color: black;
+    background-image: url("https://www.ibackdrop.com/cdn/shop/products/Black_and_White_Dots_Dot_the_Background_like_A_Starry_Sky_Photo_Backdrop_IBD-19799.jpg?v=1605693035");
+}
+
+#überschrift {
+    font-size: 50px;
+    font-style: italic;
+    color: white;
+    text-shadow: black 4px 4px 3px;
+    font-family: "Audiowide", "fantasy";
+}
+
+#suchleiste-text {
+    width: 70%;
+    height: 50px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    font-size: 19px;
+    text-indent: 10px;
+    box-shadow: black 5px 5px 5px;
+    font-family: "Audiowide", "fantasy";
+    font-style: italic;
+}
+
+div.searchbar {
+    margin: auto;
+}
+
+#submitbutton {
+    height: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    font-size: 19px;
+    text-indent: 10px;
+    box-shadow: black 5px 5px 5px;
+    font-family: "Audiowide", "fantasy";
+    font-style: italic;
+}
+
+.trennlinie {
+    height: 5px;
+    background-color: yellow;
+}
+
+#trennlinieOben {
+    height: 6px;
+}
+
+.visitenkarten_container {
+    /*background-color: white;*/
+    position: static;
+}
+
+.visitenkarten {
+    position: static;
+    background: linear-gradient(to right, #420069, purple) no-repeat;
+    box-shadow: black 5px 5px 5px;
+    border-radius: 25px;
+    height: 275px;
+    width: 65%;
+    margin: auto;
+    font-family: "Audiowide", "fantasy";
+    display: block;
+}
+
+.visitenbild {
+    position: static;
+    height: 200px;
+    max-width: 200px;
+    margin-top: 10px;
+}
+
+.hauptContainer {
+    position: static;
+    /*background-color: orange;*/
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+    height: 100%;
+    width: 75%;
+    display: flex;
+}
+
+.containerBild {
+    position: relative;
+    height: 100%;
+    width: 200px;
+    /*background-color: red;*/
+    left: 40px;
+}
+
+.containerBeschreibung {
+    position: relative;
+    /*background-color: aqua;*/
+    height: 100%;
+    width: 100%;
+    left: 17%;
+}
+
+#charakterbeschreibung {
+    position: relative;
+    width: 100%;
+    /*background-color: blanchedalmond;*/
+    color: white;
+    text-shadow: black 1px 1px 1px;
+    bottom: 13px;
+    list-style-position: outside;
+    list-style-type: circle;
+    font-size: 16px;
+}
+
+span {
+    color: white;
+}
+
+#dropdown {
+    width: 20%;
+    height: 50px;
+    font-size: 19px;
+    font-family: "Audiowide", "fantasy";
+}

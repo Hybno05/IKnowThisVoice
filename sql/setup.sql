@@ -1,0 +1,118 @@
+CREATE DATABASE IF NOT EXISTS iktv;
+USE iktv;
+
+CREATE TABLE IF NOT EXISTS lang (
+    lId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    lShort VARCHAR(3) UNIQUE NOT NULL,
+    lName VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS gender (
+    gId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    gName VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS voice_actor (
+    vaId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    vaSurname VARCHAR(30) NOT NULL,
+    vaFirstName VARCHAR(30) NOT NULL,
+    vaPictureUrl VARCHAR(2000),
+    vaBirthDate VARCHAR(30),
+    vaBirthPlace VARCHAR(30),
+    vaDeathDate VARCHAR(30),
+    vaDeathPlace VARCHAR(30),
+    gId INT NOT NULL,
+    FOREIGN KEY (gId) REFERENCES gender(gId)
+);
+
+CREATE TABLE IF NOT EXISTS charakter (
+    cId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    cSurname VARCHAR(30),
+    cFirstName VARCHAR(30),
+    cPictureUrl VARCHAR(2000),
+    gId INT NOT NULL,
+    cDescription VARCHAR(10000),
+    FOREIGN KEY (gId) REFERENCES gender(gId)
+);
+
+CREATE TABLE IF NOT EXISTS video_game (
+    vId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    vName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS movie (
+    mId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    mName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS series (
+    seId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    seName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS franchise (
+    fId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    fName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS season (
+    seaId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    seaEpisodeCount INT NOT NULL,
+    seId INT NOT NULL,
+    seaNr INT NOT NULL,
+    FOREIGN KEY (seId) REFERENCES series(seId)
+);
+
+CREATE TABLE IF NOT EXISTS va_lang (
+    valId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    vaId INT NOT NULL,
+    lId INT NOT NULL,
+    FOREIGN KEY (vaId) REFERENCES voice_actor(vaId),
+    FOREIGN KEY (lId) REFERENCES lang(lId)
+);
+
+CREATE TABLE IF NOT EXISTS se_franchise (
+    fId INT NOT NULL,
+    seId INT NOT NULL,
+    FOREIGN KEY (fId) REFERENCES franchise(fId),
+    FOREIGN KEY (seId) REFERENCES series(seId),
+    PRIMARY KEY (fId, seId)
+);
+
+CREATE TABLE IF NOT EXISTS movie_franchise (
+    mId INT NOT NULL,
+    fId INT NOT NULL,
+    FOREIGN KEY (mId) REFERENCES movie(mId),
+    FOREIGN KEY (fId) REFERENCES franchise(fId),
+    PRIMARY KEY (mId, fId)
+);
+
+CREATE TABLE IF NOT EXISTS vg_franchise (
+    fId INT NOT NULL,
+    vId INT NOT NULL,
+    FOREIGN KEY (fId) REFERENCES franchise(fId),
+    FOREIGN KEY (vId) REFERENCES video_game(vId),
+    PRIMARY KEY (fId, vId)
+);
+
+CREATE TABLE IF NOT EXISTS va_char (
+    vacId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    cId INT NOT NULL,
+    valId INT NOT NULL,
+    FOREIGN KEY (cId) REFERENCES charakter(cId),
+    FOREIGN KEY (valId) REFERENCES va_lang(valId)
+);
+
+CREATE TABLE IF NOT EXISTS content_cva (
+    ccvaId INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    mId INT NULL,
+    vId INT NULL,
+    seaId INT NULL,
+    vacId INT NOT NULL,
+    vacAge INT,
+    UNIQUE (mId, vId, seaId, vacId),
+    FOREIGN KEY (mId) REFERENCES movie(mId),
+    FOREIGN KEY (vId) REFERENCES video_game(vId),
+    FOREIGN KEY (seaId) REFERENCES season(seaId),
+    FOREIGN KEY (vacId) REFERENCES va_char(vacId)
+);
