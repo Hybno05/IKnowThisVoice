@@ -17,7 +17,7 @@ if (!isset($_SESSION['username'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     </link>
     <script>
     </script>
@@ -188,17 +188,17 @@ if (!isset($_SESSION['username'])) {
                 ";
 
                 $movie_query = "SELECT cMovie FROM suggestion WHERE ID = ".$ID."";
-                if(mysqli_query($connect_db, $movie_query) == '') {
+                if(mysqli_query($connect_db, $movie_query) != ' ') {
                         $query .= " INSERT INTO movie(mName) SELECT cMovie FROM suggestion WHERE ID =".$ID.";";
                 }
 
                 $videogame_query = "SELECT cVideogame FROM suggestion WHERE ID = ".$ID."";
-                if(mysqli_query($connect_db, $videogame_query) == '') {
+                if(mysqli_query($connect_db, $videogame_query) != ' ') {
                         $query .= " INSERT INTO video_game(vName) SELECT cVideogame FROM suggestion WHERE ID =".$ID.";";
                 }
 
                 $series_query = "SELECT cSeries FROM suggestion WHERE ID = ".$ID."";
-                if(mysqli_query($connect_db, $series_query) == '') {
+                if(!mysqli_query($connect_db, $series_query) != ' ') {
                 $query .=" INSERT INTO series(seName) SELECT cSeries FROM suggestion WHERE ID = ".$ID."; 
                 -- Die Informationen über die Seasons wie EpisodeCount müssen über die API abgefragt werden. 
                 INSERT INTO season(seaNr, seId, seaEpisodeCount) 
@@ -216,7 +216,8 @@ if (!isset($_SESSION['username'])) {
                 JOIN voice_actor ON voice_actor.vaFirstName=suggestion.vaFirstName 
                 JOIN lang ON lang.lShort = suggestion.vaLanguage 
                 JOIN va_lang ON va_lang.vaId = voice_actor.vaId AND va_lang.lId = lang.lId
-                JOIN va_char ON va_char.valId = va_lang.valId AND va_char.cId = charakter.cId WHERE suggestion.ID =".$ID.";
+                JOIN va_char ON va_char.valId = va_lang.valId AND va_char.cId = charakter.cId 
+                WHERE suggestion.ID =".$ID.";
                 DELETE FROM suggestion WHERE ID = ". $ID.";
                 ";           
                

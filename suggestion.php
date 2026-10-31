@@ -43,12 +43,9 @@
       }
       if ($_POST["_series"] == "") {
         $series = NULL;
-      } else {
-        $series = test_input($_POST["_series"]);
-      }
-      if ($_POST["_season"] == "") {
         $season = NULL;
       } else {
+        $series = test_input($_POST["_series"]);
         $season = test_input($_POST["_season"]);
       }
       if ($_POST["_movie"] == "") {
